@@ -136,4 +136,4 @@ if st.button("Analyze My Career", type="primary"):
                 data=pdf_buffer.getvalue(),
                 file_name="AI_Career_Report.pdf",
                 mime="application/pdf"
-            )
+)
