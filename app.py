@@ -90,7 +90,7 @@ if st.button("Analyze My Career", type="primary"):
             st.subheader("📊 Your AI Career Report")
             st.markdown(report)
 
-                        pdf_buffer = BytesIO()
+            pdf_buffer = BytesIO()
 
             doc = SimpleDocTemplate(
                 pdf_buffer,
