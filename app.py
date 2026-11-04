@@ -3,6 +3,11 @@ import os
 import streamlit as st
 from groq import Groq
 from pypdf import PdfReader
+from io import BytesIO
+from xml.sax.saxutils import escape
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 st.set_page_config(
     page_title="AI Career Companion",
