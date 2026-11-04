@@ -90,17 +90,50 @@ if st.button("Analyze My Career", type="primary"):
             st.subheader("📊 Your AI Career Report")
             st.markdown(report)
 
-            st.download_button(
-                "📥 Download Report",
-                data=report,
-                file_name="AI_Career_Report.txt",
-                mime="text/plain"
+                        pdf_buffer = BytesIO()
+
+            doc = SimpleDocTemplate(
+                pdf_buffer,
+                pagesize=A4,
+                rightMargin=40,
+                leftMargin=40,
+                topMargin=40,
+                bottomMargin=40
             )
 
-        except Exception as e:
-            st.error(
-                "Analysis failed. Please check your API configuration "
-                "and try again."
+            styles = getSampleStyleSheet()
+
+            story = []
+
+            story.append(Paragraph(
+                "AI CAREER COMPANION REPORT",
+                styles["Title"]
+            ))
+
+            story.append(Spacer(1, 20))
+
+            report_content = escape(report).replace(
+                "\n", "<br/>"
             )
-            st.caption(f"Error details: {e}")
-            
+
+            body_style = ParagraphStyle(
+                "Report",
+                parent=styles["Normal"],
+                fontSize=10,
+                leading=15
+            )
+
+            story.append(
+                Paragraph(report_content, body_style)
+            )
+
+            doc.build(story)
+
+            pdf_buffer.seek(0)
+
+            st.download_button(
+                "📥 Download PDF Report",
+                data=pdf_buffer.getvalue(),
+                file_name="AI_Career_Report.pdf",
+                mime="application/pdf"
+            )
